@@ -29,6 +29,26 @@ cd HackerNews
 bash ./system_setup/deploy-dev-mode
 ```
 
+### Using Admin panel
+
+Post Installation
+
+```bash
+docker container exec -it app python manage.py createsuperuser
+```
+
+Output
+
+```
+Username (leave blank to use 'root'):<your-username>
+Email address:<your-email>
+Password:<hidden>
+Password (again):<hidden>
+Superuser created successfully.
+```
+
+Now, load http://localhost/admin
+
 ## Roadmap
 
 ### Achieved Milestone
