@@ -55,6 +55,7 @@ def parse(extractor_model_id:int):
         print(f"File not found {path}/{filename}", end="\n")
         return
 
+    # The parsing plan: https://docs.google.com/document/d/19nFkvWI85P0klGA10WognYZg6GAW396JGHOfMqOMQyQ/edit
     soup = bsoup4(markup=html, features='html5lib')
 
     itemsTable = soup.find(name='table', class_='itemlist')
