@@ -15,6 +15,7 @@ A scrapper of https://news.ycombinator.com site
 
 ### Upcoming Milestone
 
+- [ ] Need to write installer to setup database
 - [ ] Ability to store HTML file path
 - [ ] Ability to pick stored HTML file from the file path
 - [ ] User Model for users to access post
