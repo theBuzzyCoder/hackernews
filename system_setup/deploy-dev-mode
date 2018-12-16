@@ -11,12 +11,12 @@ docker volume prune
 docker-compose up -d --build
 
 tput setaf 2
-echo "Wait for it..."
+echo "Wait for it... It takes time to start mysql container"
 
 # This particular sleep time is because mysql takes time to start
 # and get setup. Therefore give enough time for it to start.
 # If not, throws connection refused error.
-sleep 10
+sleep 20
 docker container exec app python manage.py makemigrations
 docker container exec app python manage.py migrate
 

@@ -10,13 +10,14 @@ docker-compose -f deploy.yml down
 docker volume prune
 docker-compose -f deploy.yml up -d --build
 
-tput setaf 2
-echo "Wait for it..."
+# tput doesn't work in alpine linux
+# tput setaf 2
+echo "Wait for it... It takes time to start mysql container"
 
 # This particular sleep time is because mysql takes time to start
 # and get setup. Therefore give enough time for it to start.
 # If not, throws connection refused error.
-sleep 10
+sleep 20
 docker container exec app python manage.py makemigrations
 docker container exec app python manage.py migrate
 
@@ -29,7 +30,7 @@ docker-compose -f deploy.yml up -d
 docker container exec app python ../backend/htmlDownloader.py
 docker container exec app python ../backend/htmlParser.py --extractor_model_id=1
 
-tput setaf 2
+# tput setaf 2
 echo "Okay! Now you can load http://localhost to see the output"
 
 # Commented this out as it wasn't working in mac OS
