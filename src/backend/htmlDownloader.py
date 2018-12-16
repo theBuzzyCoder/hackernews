@@ -3,12 +3,24 @@
 
 import os
 import re
+import django
 import argparse
 import datetime
 from requests import get
 
 
 BASE_URL = "https://news.ycombinator.com"
+
+
+def setupDjango():
+    """
+    This is so that we can use Django models outside of django.
+    Without this you cannot load any of the django models.
+    """
+    os.environ.setdefault(
+        'DJANGO_SETTINGS_MODULE', 'website.settings'
+    )
+    django.setup()
 
 
 def getCompleteUrl(urlPath: str) -> str:
@@ -21,7 +33,7 @@ def saveHtml(path: str, filename: str, html: str) -> None:
     filepath = os.path.join(path, filename)
     with open(filepath, "w") as fileHandle:
         fileHandle.write(html)
-    return None
+    return filepath
 
 
 def downloadHtml(url: str) -> str:
@@ -71,8 +83,7 @@ def getAppendedHtml(html: str, paginatedHtml: str) -> str:
     return html
 
 
-def startExecution():
-    args = argumentParser()
+def startExecution(args):
     mailUrl = getCompleteUrl(None)
     print("Starting Download...", end="\n")
     html = downloadHtml(mailUrl)
@@ -85,14 +96,18 @@ def startExecution():
         print("==========================================", end="\n")
         print(f"Downloaded Page {i}", end="\n")
         html = getAppendedHtml(html, paginatedHtml)
-    # (basename, extension) = os.path.splitext(args.filename)
-    # filename = basename + datetime.datetime.strftime(datetime.datetime.now(), "_%Y_%b_%d_%H_%M_%S") + extension
 
-    # TODO log the filepath in database so that the parser can pick the files from database.
-    # And there is a logs of what file got downloaded when.
-    saveHtml(args.path, args.filename, html)
     print("==========================================", end="\n")
+    return html
 
 
 if __name__ == '__main__':
-    startExecution()
+    setupDjango()
+    from apps.post.models import Extractor
+    args = argumentParser()
+    html = startExecution(args)
+
+    (basename, extension) = os.path.splitext(args.filename)
+    filename = basename + datetime.datetime.strftime(datetime.datetime.now(), "_%Y_%b_%d_%H_%M_%S") + extension
+    filepath = saveHtml(args.path, filename, html)
+    Extractor(file_path=filepath, pagination=args.level).save()
