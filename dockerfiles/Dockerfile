@@ -14,6 +14,4 @@ ADD ./fileBucket /code/fileBucket
 ENV PYTHONPATH /code/src/frontend
 WORKDIR /code/src/frontend
 
-COPY ./system_setup/setup_db /code/src/frontend/setup_db
-
 CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]

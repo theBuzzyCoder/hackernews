@@ -59,7 +59,6 @@ def parse(path: str, filename: str):
         print(f"File not found {path}/{filename}", end="\n")
         return
 
-    print("Starting page scraping now ...")
     soup = bsoup4(markup=html, features='html5lib')
 
     itemsTable = soup.find(name='table', class_='itemlist')
@@ -107,4 +106,7 @@ if __name__ == '__main__':
     setupDjango()
     from apps.post.models import Post
     args = argumentParser()
+
+    print("Starting page data extraction now ...")
     parse(args.path, args.filename)
+    print("Done!")

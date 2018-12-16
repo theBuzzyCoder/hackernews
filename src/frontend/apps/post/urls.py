@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.listNews, name='listNews'),
     path('post/<int:_id>/', views.getNews, name='getNews'),
     path('post/<int:_id>/delete/', views.deleteNews, name='deleteNews'),
+    path('post/html/<str:filepath>', views.page, name='page')
 ]
