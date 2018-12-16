@@ -1,6 +1,13 @@
 # Hacker News
 A scrapper of https://news.ycombinator.com site
 
+**Special Note: If you don't have docker**
+
+- Create a docker id.
+- Open [Docker Sandbox Environment](https://labs.play-with-docker.com) and create a session there
+- Create a new instance. Docker and git will already be installed there.
+- Run the below mentioned commands
+
 ## Preinstall Requisites
 
 - `docker==18.09.0`
