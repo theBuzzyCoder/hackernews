@@ -42,6 +42,16 @@ cd HackerNews
 
 Load http://localhost/admin
 
+The login credentials were given by you here during running `./system_setup/deploy-app` command
+
+```
+Username (leave blank to use 'root'):<your-username>
+Email address:<your-email>
+Password:<hidden>
+Password (again):<hidden>
+Superuser created successfully.
+```
+
 ### Running the downloader
 
 ```bash
