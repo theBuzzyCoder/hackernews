@@ -3,24 +3,13 @@
 
 import os
 import re
-import django
 import argparse
 import datetime
 from requests import get
+from setup_django import setupDjango
 
 
 BASE_URL = "https://news.ycombinator.com"
-
-
-def setupDjango():
-    """
-    This is so that we can use Django models outside of django.
-    Without this you cannot load any of the django models.
-    """
-    os.environ.setdefault(
-        'DJANGO_SETTINGS_MODULE', 'website.settings'
-    )
-    django.setup()
 
 
 def getCompleteUrl(urlPath: str) -> str:

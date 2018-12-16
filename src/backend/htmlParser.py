@@ -5,22 +5,13 @@ import os
 import re
 import sys
 import pytz
-import django
 import argparse
 from datetime import timedelta, datetime
 from bs4 import BeautifulSoup as bsoup4
+from setup_django import setupDjango
+
 
 RE_TIME = r'(?P<timedelta>\d+)\s*(?P<time_format>week|day|hour|minute|second)(?:s)?\s+ago'
-
-def setupDjango():
-    """
-    This is so that we can use Django models outside of django.
-    Without this you cannot load any of the django models.
-    """
-    os.environ.setdefault(
-        'DJANGO_SETTINGS_MODULE', 'website.settings'
-    )
-    django.setup()
 
 
 def argumentParser():
