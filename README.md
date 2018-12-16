@@ -27,7 +27,7 @@ Note: This deployment scripts expects `docker` command to be run without using `
 ```bash
 git clone git://github.com/theBuzzyCoder/HackerNews.git HackerNews
 cd HackerNews
-bash ./system_setup/deploy-app
+./system_setup/deploy-app
 ```
 
 ### Development Mode
@@ -35,7 +35,7 @@ bash ./system_setup/deploy-app
 ```bash
 git clone git://github.com/theBuzzyCoder/HackerNews.git HackerNews
 cd HackerNews
-bash ./system_setup/deploy-dev-mode
+./system_setup/deploy-dev-mode
 ```
 
 ### Using Admin panel
