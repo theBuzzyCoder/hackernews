@@ -17,18 +17,16 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="/">Dashboard</a></li>
 
-          {% if post.id > 0 %}
-          <li><a href="/post/{{post.id|add:"-1"}}">Previous</a></li>
+          {% if post_id > 0 %}
+          <li><a href="/post/{{post_id|add:"-1"}}">Previous</a></li>
           {% endif %}
 
-          {% if post.id < max_id %}
-          <li><a href="/post/{{post.id|add:"1"}}">Next</a></li>
+          {% if post_id < max_id %}
+          <li><a href="/post/{{post_id|add:"1"}}">Next</a></li>
           {% endif %}
         </ul>
       </div>
     </nav>
-    <div class="container">
-      <iframe src="{{post.hacker_news_url}}" width="900" height="900"> </iframe>
-    </div>
+    <h3> Sorry, the post you're looking for is no longer available! </h3>
   </body>
 </html>

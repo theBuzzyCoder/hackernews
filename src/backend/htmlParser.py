@@ -22,6 +22,13 @@ def setupDjango():
     django.setup()
 
 
+def argumentParser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--path", type=str, required=True, help="Path where HTML file should be stored.")
+    parser.add_argument("--filename", type=str, required=True, help="filename of HTML file.")
+    return parser.parse_args()
+
+
 # Had too many drawbacks. Can't set values with proper data field types. Like duration for example.
 # def getDatabaseConnection():
 #     return MySQLdb.connect(db='hackernews', user='admin', password='admin', host='db', port=3306)
@@ -94,4 +101,5 @@ def parse(path: str, filename: str) -> list:
 if __name__ == '__main__':
     setupDjango()
     from apps.post.models import Post
-    parse('fileBucket', 'something.html')
+    args = argumentParser()
+    parse(args.path, args.filename)
