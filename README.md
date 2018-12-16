@@ -20,6 +20,8 @@ A scrapper of https://news.ycombinator.com site
 
 ## Installation
 
+Note: This deployment scripts expects `docker` command to be run without using `sudo` or `superuser mode`
+
 ### Production
 
 ```bash
