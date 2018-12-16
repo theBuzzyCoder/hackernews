@@ -6,6 +6,7 @@ import re
 import sys
 import pytz
 import django
+import argparse
 from datetime import timedelta, datetime
 from bs4 import BeautifulSoup as bsoup4
 
@@ -40,9 +41,8 @@ def argumentParser():
 #     return MySQLdb.DictCursor(connection) if isDictCursor else connection.cursor()
 
 
-def loadHtml(path: str, filename: str) -> str:
+def loadHtml(filepath: str, filename: str) -> str:
     html = ""
-    filepath = os.path.normpath(os.path.join(os.getcwd(), f'../../{path}'))
     fullFilePath = os.path.join(filepath, filename)
     if os.path.exists(fullFilePath) and os.path.isfile(fullFilePath):
         with open(fullFilePath, mode="r") as readHandle:
@@ -50,11 +50,16 @@ def loadHtml(path: str, filename: str) -> str:
     return html
 
 
-def parse(path: str, filename: str) -> list:
+def parse(path: str, filename: str):
     data_dict_list = list()
     timedeltaFilterer = re.compile(RE_TIME, flags=re.I)
 
     html = loadHtml(path, filename)
+    if not html:
+        print(f"File not found {path}/{filename}", end="\n")
+        return
+
+    print("Starting page scraping now ...")
     soup = bsoup4(markup=html, features='html5lib')
 
     itemsTable = soup.find(name='table', class_='itemlist')

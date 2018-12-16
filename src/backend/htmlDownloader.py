@@ -85,14 +85,13 @@ def startExecution():
         print("==========================================", end="\n")
         print(f"Downloaded Page {i}", end="\n")
         html = getAppendedHtml(html, paginatedHtml)
-    (filename, extension) = os.path.splitext(args.filename)
-
-    # TODO once testing is completed uncomment this link
-    # filename = filename + datetime.datetime.strftime(datetime.datetime.now(), "_%Y_%b_%d_%H_%M_%S") + extension
+    # (basename, extension) = os.path.splitext(args.filename)
+    # filename = basename + datetime.datetime.strftime(datetime.datetime.now(), "_%Y_%b_%d_%H_%M_%S") + extension
 
     # TODO log the filepath in database so that the parser can pick the files from database.
     # And there is a logs of what file got downloaded when.
-    saveHtml(args.path, filename, html)
+    saveHtml(args.path, args.filename, html)
+    print("==========================================", end="\n")
 
 
 if __name__ == '__main__':
