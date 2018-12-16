@@ -4,7 +4,7 @@ version: '3'
 services:
   db:
     image: mysql:5.7
-    container_name: db
+    container_name: mysqldb
     ports:
       - 3364:3306
     environment:
@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/Dockerfile
-    command: python manage.py runserver 80
+    command: python manage.py runserver 0.0.0.0:80
     volumes:
       - .:/code
     ports:

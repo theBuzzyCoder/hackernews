@@ -1,6 +1,24 @@
 # Hacker News
 A scrapper of https://news.ycombinator.com site
 
+## Preinstall Requisites
+
+- `docker==18.09.0`
+- `docker-compose==1.23.2`
+
+### Note
+
+- Run `usermod -aG docker $USER`
+- Reboot system to avoid using sudo every time when you run docker.
+
+## Installation
+
+```bash
+git clone git://github.com/theBuzzyCoder/HackerNews.git HackerNews
+cd HackerNews
+bash ./system_setup/deploy-app
+```
+
 ## Roadmap
 
 ### Achieved Milestone
@@ -12,10 +30,10 @@ A scrapper of https://news.ycombinator.com site
 - [x] Detail View to view the post
 - [x] Ability to delete post for user
 - [x] Ability to display new posts as new and read post as not new
+- [x] Need to write installer to setup database
 
 ### Upcoming Milestone
 
-- [ ] Need to write installer to setup database
 - [ ] Ability to store HTML file path
 - [ ] Ability to pick stored HTML file from the file path
 - [ ] User Model for users to access post
