@@ -42,13 +42,13 @@
         </div>
         <div class="card-tabs">
           <ul class="tabs tabs-fixed-width">
-            <li class="tab"><a href="#test{{ post.id }}-4"> Source </a></li>
+            <li class="tab"><a href="#test{{ post.id }}-4"> Post Age </a></li>
             <li class="tab"><a class="active" href="#test{{ post.id }}-5"> Votes </a></li>
             <li class="tab"><a href="#test{{ post.id }}-6"> Comments </a></li>
           </ul>
         </div>
         <div class="card-content grey lighten-4">
-          <div id="test{{ post.id }}-4" class='center-align'> <a href="{{ post.hacker_news_url }}"> {{ post.hacker_news_url }} </a> </div>
+          <div id="test{{ post.id }}-4" class='center-align'> {{ post.post_age }} </div>
           <div id="test{{ post.id }}-5" class='center-align'> {{ post.upvotes }} </div>
           <div id="test{{ post.id }}-6" class='center-align'> {{ post.comments }} </div>
         </div>
@@ -66,13 +66,13 @@
         </div>
         <div class="card-tabs">
           <ul class="tabs tabs-fixed-width">
-            <li class="tab"><a href="#test{{ evenpost.id }}-4"> Source </a></li>
+            <li class="tab"><a href="#test{{ evenpost.id }}-4"> Post Age </a></li>
             <li class="tab"><a class="active" href="#test{{ evenpost.id }}-5"> Votes </a></li>
             <li class="tab"><a href="#test{{ evenpost.id }}-6"> Comments </a></li>
           </ul>
         </div>
         <div class="card-content grey lighten-4">
-          <div id="test{{ evenpost.id }}-4" class='center-align'> <a href="{{ evenpost.hacker_news_url }}"> {{ evenpost.hacker_news_url }} </a> </div>
+          <div id="test{{ evenpost.id }}-4" class='center-align'> {{ evenpost.post_age }} </div>
           <div id="test{{ evenpost.id }}-5" class='center-align'> {{ evenpost.upvotes }} </div>
           <div id="test{{ evenpost.id }}-6" class='center-align'> {{ evenpost.comments }} </div>
         </div>

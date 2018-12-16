@@ -15,7 +15,7 @@ def detail_view_not_found(request, _id):
 def listNews(request):
     posts = []
     wrappedPost = []
-    allPosts = Post.objects.all().filter(is_deleted=0)
+    allPosts = Post.objects.all().filter(is_deleted=0).order_by('-post_age', '-created_at')
     for index, post in enumerate(allPosts, 1):
         wrappedPost.append(post)
         if index % 2 == 0:
