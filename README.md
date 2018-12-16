@@ -13,10 +13,20 @@ A scrapper of https://news.ycombinator.com site
 
 ## Installation
 
+### Production
+
 ```bash
 git clone git://github.com/theBuzzyCoder/HackerNews.git HackerNews
 cd HackerNews
 bash ./system_setup/deploy-app
+```
+
+### Development Mode
+
+```bash
+git clone git://github.com/theBuzzyCoder/HackerNews.git HackerNews
+cd HackerNews
+bash ./system_setup/deploy-dev-mode
 ```
 
 ## Roadmap
@@ -31,10 +41,11 @@ bash ./system_setup/deploy-app
 - [x] Ability to delete post for user
 - [x] Ability to display new posts as new and read post as not new
 - [x] Need to write installer to setup database
+- [x] Ability to view downloaded HTML files
 
 ### Upcoming Milestone
 
-- [ ] Ability to store HTML file path
+- [ ] Ability to store path of downloaded HTML files in database.
 - [ ] Ability to pick stored HTML file from the file path
 - [ ] User Model for users to access post
 - [ ] Ability for user to login to portal

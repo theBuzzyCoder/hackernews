@@ -23,7 +23,8 @@ services:
       dockerfile: ./dockerfiles/Dockerfile
     command: python manage.py runserver 0.0.0.0:80
     volumes:
-      - .:/code
+      - ./src:/code/src
+      - ./fileBucket:/code/fileBucket
     ports:
       - 80:80
     links:
