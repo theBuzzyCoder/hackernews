@@ -1,6 +1,5 @@
-version: '3'
+version: '3.7'
 
-# For development purpose only
 services:
   db:
     image: mysql:5.7
@@ -14,26 +13,28 @@ services:
       MYSQL_DATABASE: hackernews
     volumes:
       - data:/var/lib/mysql
+    networks:
+      - webnet
 
   web:
-    image: dev_hackernews:1.0.0
+    image: deploy_hackernews:1.0.0
     container_name: app
+    command: python manage.py runserver 80
     build:
       context: .
       dockerfile: ./dockerfiles/Dockerfile
-    command: python manage.py runserver 80
-    volumes:
-      - .:/code
     ports:
-      - 80:80
-    links:
-      - db:mysql
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      - webnet
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: myadmin
+    container_name: phpmyadmin
     ports:
-      - 8080:80
+      - "8080:80"
     links:
       - db:mysql
     environment:
@@ -42,8 +43,13 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     restart: always
+    networks:
+      - webnet
     depends_on:
       - db
 
 volumes:
   data:
+
+networks:
+  webnet:

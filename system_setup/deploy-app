@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# $0 is the filename of the executing file
+# getting directory name of the current executing file
+# and setting parent directory as PROJECT_PATH
+export PROJECT_PATH="$(dirname $0)/.."
+cd $PROJECT_PATH
+
+docker build -t hackernews:1.0.0 -f $PROJECT_PATH/dockerfiles/Dockerfile $PROJECT_PATH
+docker-compose run web python manage.py makemigrations post
+docker-compose run web python manage.py migrate
+
+# Commented this out as it wasn't working in mac OS
+# docker swarm init
+# docker stack deploy -c deploy.yml news
+
+# Altenate deployment plan instead of stack deploy
+docker-compose up -d
