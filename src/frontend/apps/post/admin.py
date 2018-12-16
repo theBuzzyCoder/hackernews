@@ -1,6 +1,7 @@
+import os
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Post
+from .models import Post, Extractor
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -24,11 +25,28 @@ class PostAdmin(admin.ModelAdmin):
     # Order by created_at desc
     ordering = ['-created_at']
     search_fields = ['subject']
-    read_only = True
 
     def getSubject(self, instance):
         return mark_safe(f'<a href="{instance.hacker_news_url}" alt="{instance.subject}"> {instance.subject} </a>')
 
     getSubject.short_description = 'Subject'
 
+
+class ExtractorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'getFilePath', 'pagination', 'created_at')
+    fieldsets = (
+        ('Primary', {  # Panel-1
+            'fields': ('file_path', 'pagination', 'created_at')
+        }),
+    )
+    ordering = ['-created_at']
+    search_fields = ['file_path']
+
+    def getFilePath(self, instance):
+        basename = os.path.basename(instance.file_path)
+        return mark_safe(f'<a href="/post/html/{basename}" alt="{instance.file_path}"> {instance.file_path} </a>')
+
+    getFilePath.short_description = "Html Path"
+
 admin.site.register(Post, PostAdmin)
+admin.site.register(Extractor, ExtractorAdmin)

@@ -22,3 +22,19 @@ class Post(models.Model):
             self.created_at = timezone.now()
         self.modified_at = timezone.now()
         return super(Post, self).save(*args, **kwargs)
+
+
+class Extractor(models.Model):
+    file_path = models.FilePathField(path="/code/fileBucket", match=".*\.htm(l)?", unique=True)
+    pagination = models.IntegerField(verbose_name="Paginations", default=1)
+    created_at = models.DateTimeField(verbose_name='created at')
+    modified_at = models.DateTimeField(verbose_name='modified at')
+
+    def save(self, *args, **kwargs):
+        """
+        Overriding save to avoid created_at being updated again and again
+        """
+        if not self.id:
+            self.created_at = timezone.now()
+        self.modified_at = timezone.now()
+        return super(Extractor, self).save(*args, **kwargs)
