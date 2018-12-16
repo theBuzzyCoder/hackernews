@@ -6,6 +6,7 @@ import re
 import sys
 import pytz
 import argparse
+from django.db import IntegrityError
 from datetime import timedelta, datetime
 from bs4 import BeautifulSoup as bsoup4
 from setup_django import setupDjango
@@ -16,8 +17,7 @@ RE_TIME = r'(?P<timedelta>\d+)\s*(?P<time_format>week|day|hour|minute|second)(?:
 
 def argumentParser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--path", type=str, required=True, help="Path where HTML file should be stored.")
-    parser.add_argument("--filename", type=str, required=True, help="filename of HTML file.")
+    parser.add_argument("--extractor_model_id", type=int, required=True, help="Model Id of extractor")
     return parser.parse_args()
 
 
@@ -32,20 +32,25 @@ def argumentParser():
 #     return MySQLdb.DictCursor(connection) if isDictCursor else connection.cursor()
 
 
-def loadHtml(filepath: str, filename: str) -> str:
+def loadHtml(filepath:str) -> str:
     html = ""
-    fullFilePath = os.path.join(filepath, filename)
-    if os.path.exists(fullFilePath) and os.path.isfile(fullFilePath):
-        with open(fullFilePath, mode="r") as readHandle:
+    if os.path.exists(filepath) and os.path.isfile(filepath):
+        with open(filepath, mode="r") as readHandle:
             html = readHandle.read()
     return html
 
 
-def parse(path: str, filename: str):
+def parse(extractor_model_id:int):
     data_dict_list = list()
     timedeltaFilterer = re.compile(RE_TIME, flags=re.I)
 
-    html = loadHtml(path, filename)
+    try:
+        extractor = Extractor.objects.get(id=extractor_model_id)
+    except Extractor.DoesNotExist:
+        print("Extractor Model not found")
+        return
+
+    html = loadHtml(extractor.file_path)
     if not html:
         print(f"File not found {path}/{filename}", end="\n")
         return
@@ -87,17 +92,24 @@ def parse(path: str, filename: str):
         postObject = Post(**data_dict)
         try:
             postObject.save()
-        except django.db.IntegrityError as e:
+        except IntegrityError as e:
             postObject = Post.objects.get(subject=data_dict['subject'])
             postObject.__dict__.update(data_dict)
             postObject.save()
+    else:
+        # Upon successful execution of for loop, do the following
+        # It means that, if exception is thrown or loop breaks in between
+        # this block will not be executed.
+        extractor.is_parsed = 1
+        extractor.save()
+
 
 
 if __name__ == '__main__':
     setupDjango()
-    from apps.post.models import Post
+    from frontend.apps.post.models import Post, Extractor
     args = argumentParser()
 
     print("Starting page data extraction now ...")
-    parse(args.path, args.filename)
+    parse(args.extractor_model_id)
     print("Done!")

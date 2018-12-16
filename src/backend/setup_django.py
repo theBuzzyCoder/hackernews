@@ -8,6 +8,6 @@ def setupDjango():
     Without this you cannot load any of the django models.
     """
     os.environ.setdefault(
-        'DJANGO_SETTINGS_MODULE', 'website.settings'
+        'DJANGO_SETTINGS_MODULE', 'frontend.website.settings'
     )
     django.setup()

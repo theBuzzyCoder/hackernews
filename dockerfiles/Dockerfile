@@ -11,7 +11,7 @@ RUN pip install -r requirements.pip
 ADD ./src /code/src
 ADD ./fileBucket /code/fileBucket
 
-ENV PYTHONPATH /code/src/frontend
+ENV PYTHONPATH /code/src
 WORKDIR /code/src/frontend
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
