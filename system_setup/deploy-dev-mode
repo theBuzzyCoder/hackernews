@@ -20,11 +20,14 @@ sleep 10
 docker container exec app python manage.py makemigrations
 docker container exec app python manage.py migrate
 
+echo "This is for admin panel superuser access:\n"
+docker container exec -it app python manage.py createsuperuser
+
 docker-compose down  # To terminate unnecessary containers
 docker-compose up -d
 
-docker container exec app python ../backend/htmlDownloader.py --path /code/fileBucket --filename something.html --level 3
-docker container exec app python ../backend/htmlParser.py --path /code/fileBucket --filename something.html
+docker container exec app python ../backend/htmlDownloader.py
+docker container exec app python ../backend/htmlParser.py --extractor_model_id=1
 
 tput setaf 2
 echo "Okay! Now you can load http://localhost to see the output"

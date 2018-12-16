@@ -49,6 +49,22 @@ Superuser created successfully.
 
 Now, load http://localhost/admin
 
+### Running the downloader
+
+```bash
+docker container exec app python ../backend/htmlDownloader.py
+```
+
+- `--paginations` option is for number of pages to download. It's optional. By default, it's 3.
+
+### Running the parser
+
+```bash
+docker container exec app python ../backend/htmlParser.py --extractor_model_id=1
+```
+
+- `--extractor_model_id` is mandatory argument to parse. It's the `id` field of post_extractor table
+
 ## Roadmap
 
 ### Achieved Milestone
@@ -62,13 +78,13 @@ Now, load http://localhost/admin
 - [x] Ability to display new posts as new and read post as not new
 - [x] Need to write installer to setup database
 - [x] Ability to view downloaded HTML files
+- [x] Ability to store path of downloaded HTML files in database.
+- [x] Ability to pick stored HTML file from the file path
 
 ### Upcoming Milestone
 
-- [ ] Ability to store path of downloaded HTML files in database.
-- [ ] Ability to pick stored HTML file from the file path
 - [ ] User Model for users to access post
 - [ ] Ability for user to login to portal
 - [ ] Ability to create account
 - [ ] Ability to reset password
-- [ ] Ability to automate the new updating on button click
+- [ ] Ability to automate the news updating on button click

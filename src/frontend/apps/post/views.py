@@ -2,7 +2,7 @@ import os
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.db.models import Max
-from .models import Post
+from frontend.apps.post.models import Post
 
 
 def detail_view_not_found(request, _id):

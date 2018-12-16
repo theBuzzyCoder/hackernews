@@ -27,6 +27,7 @@ class Post(models.Model):
 class Extractor(models.Model):
     file_path = models.FilePathField(path="/code/fileBucket", match=".*\.htm(l)?", unique=True)
     pagination = models.IntegerField(verbose_name="Paginations", default=1)
+    is_parsed = models.BooleanField(verbose_name='Is Parsed', default=False)
     created_at = models.DateTimeField(verbose_name='created at')
     modified_at = models.DateTimeField(verbose_name='modified at')
 

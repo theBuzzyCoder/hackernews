@@ -1,7 +1,7 @@
 import os
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Post, Extractor
+from frontend.apps.post.models import Post, Extractor
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -23,7 +23,7 @@ class PostAdmin(admin.ModelAdmin):
     )
 
     # Order by created_at desc
-    ordering = ['-created_at']
+    ordering = ['-post_age', 'id']
     search_fields = ['subject']
 
     def getSubject(self, instance):
@@ -33,7 +33,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class ExtractorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'getFilePath', 'pagination', 'created_at')
+    list_display = ('id', 'getFilePath', 'pagination', 'is_parsed', 'created_at')
     fieldsets = (
         ('Primary', {  # Panel-1
             'fields': ('file_path', 'pagination', 'created_at')

@@ -54,9 +54,7 @@ def paginate(html: str) -> str:
 
 def argumentParser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--path", type=str, required=True, help="Path where HTML file should be stored.")
-    parser.add_argument("--filename", type=str, required=True, help="filename of HTML file.")
-    parser.add_argument("--level", type=int, required=True, help="Number of times to paginate.")
+    parser.add_argument("--paginations", type=int, required=False, help="Number of times to paginate.", default=3)
     return parser.parse_args()
 
 
@@ -79,7 +77,7 @@ def startExecution(args):
 
     print("==========================================", end="\n")
     print("Downloaded Page 1", end="\n")
-    for i in range(2, args.level + 1, 1):
+    for i in range(2, args.paginations + 1, 1):
         # This will overwrite previous html, and get new more link
         paginatedHtml = paginate(html)
         print("==========================================", end="\n")
@@ -92,11 +90,11 @@ def startExecution(args):
 
 if __name__ == '__main__':
     setupDjango()
-    from apps.post.models import Extractor
+    from frontend.apps.post.models import Extractor
     args = argumentParser()
     html = startExecution(args)
 
-    (basename, extension) = os.path.splitext(args.filename)
+    (basename, extension) = os.path.splitext('downloadedFile.html')
     filename = basename + datetime.datetime.strftime(datetime.datetime.now(), "_%Y_%b_%d_%H_%M_%S") + extension
-    filepath = saveHtml(args.path, filename, html)
-    Extractor(file_path=filepath, pagination=args.level).save()
+    filepath = saveHtml('/code/fileBucket', filename, html)
+    Extractor(file_path=filepath, pagination=args.paginations).save()
