@@ -74,6 +74,15 @@ docker container exec app python ../backend/htmlParser.py --extractor_model_id=1
 
 - `--extractor_model_id` is mandatory argument to parse. It's the `id` field of post_extractor table
 
+### Loading PHP-My-Admin
+
+You can load phpmyadmin using this link: http://localhost:8080
+
+For Login:
+- Server: db
+- User: admin
+- Password: admin
+
 ## Roadmap
 
 ### Achieved Milestone
